@@ -1,285 +1,42 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LUA-FORGE // Autonomous Lua AI Script Engine</title>
-  <!-- Google Fonts for elite terminal & code aesthetics -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio & Software</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+      line-height: 1.6;
+    }
+    .project {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    a.button {
+      display: inline-block;
+      padding: 8px 16px;
+      background: #2563eb;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+  </style>
 </head>
 <body>
-  <!-- Cyber-Grid Scanline Overlay -->
-  <div class="scanlines"></div>
-  <div class="grid-overlay"></div>
+  <h1>Welcome to My Showcase</h1>
+  <p>Check out my latest apps, tools, and demos.</p>
 
-  <!-- App Wrapper -->
-  <div class="app-container">
-    
-    <!-- Top Terminal Status Bar -->
-    <header class="terminal-header">
-      <div class="header-logo">
-        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-        </svg>
-        <span class="logo-text">LUA-FORGE<span class="logo-version">v2.6.0</span></span>
-      </div>
-      
-      <div class="terminal-stats">
-        <div class="stat-badge">
-          <span class="badge-dot green pulse"></span>
-          <span class="badge-label">AI ENGINE:</span>
-          <span class="badge-value">NETLIFY-GATEWAY (GPT-4O)</span>
-        </div>
-        <div class="stat-badge">
-          <span class="badge-dot green pulse"></span>
-          <span class="badge-label">DATABASE:</span>
-          <span class="badge-value">POSTGRES (ACTIVE)</span>
-        </div>
-        <div class="stat-badge">
-          <span class="badge-dot green"></span>
-          <span class="badge-label">CODELINE:</span>
-          <span class="badge-value">LUA 5.4+ / LUAU</span>
-        </div>
-      </div>
-
-      <div class="header-actions">
-        <button id="toggle-history-btn" class="header-btn" title="View Forged Archives">
-          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          ARCHIVES
-          <span id="history-count" class="badge-count">0</span>
-        </button>
-      </div>
-    </header>
-
-    <!-- Main Workspace Layout -->
-    <main class="workspace-grid">
-      
-      <!-- Control Panel (Left Column) -->
-      <section class="control-panel">
-        <div class="panel-header">
-          <span class="panel-title">// FORGE PARAMETERS</span>
-          <span class="panel-subtitle">Tweak specifications for synthesis</span>
-        </div>
-        
-        <div class="panel-content">
-          <!-- Environment Selector -->
-          <div class="form-group">
-            <label class="form-label">TARGET DIALECT / ENVIRONMENT</label>
-            <div class="env-grid">
-              <button class="env-btn active" data-env="Roblox">
-                <span class="env-icon">RBX</span>
-                <span class="env-name">Roblox (Luau)</span>
-              </button>
-              <button class="env-btn" data-env="Garry's Mod">
-                <span class="env-icon">GMD</span>
-                <span class="env-name">Garry's Mod</span>
-              </button>
-              <button class="env-btn" data-env="Love2D">
-                <span class="env-icon">L2D</span>
-                <span class="env-name">Love2D</span>
-              </button>
-              <button class="env-btn" data-env="World of Warcraft">
-                <span class="env-icon">WoW</span>
-                <span class="env-name">WoW Addon</span>
-              </button>
-              <button class="env-btn" data-env="Neovim">
-                <span class="env-icon">NVM</span>
-                <span class="env-name">Neovim (Lua)</span>
-              </button>
-              <button class="env-btn" data-env="Standard Lua">
-                <span class="env-icon">LUA</span>
-                <span class="env-name">Standard Lua</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Stylistic Options Grid -->
-          <div class="options-grid">
-            <!-- Complexity -->
-            <div class="form-group">
-              <label class="form-label">COMPLEXITY</label>
-              <select id="param-complexity" class="form-select">
-                <option value="Simple">Simple Script</option>
-                <option value="Structured" selected>Structured Module</option>
-                <option value="Modular (OOP)">Object-Oriented (OOP)</option>
-              </select>
-            </div>
-
-            <!-- Comments -->
-            <div class="form-group">
-              <label class="form-label">COMMENTS STYLE</label>
-              <select id="param-comments" class="form-select">
-                <option value="Detailed" selected>Detailed Explanations</option>
-                <option value="Sparse">Sparse / Critical Only</option>
-                <option value="None">None (Bare Metal)</option>
-              </select>
-            </div>
-
-            <!-- Error Handling -->
-            <div class="form-group full-width">
-              <label class="form-label">SAFETY / ERROR HANDLING</label>
-              <select id="param-error" class="form-select">
-                <option value="Standard" selected>Standard Assertions</option>
-                <option value="High (Protected pcalls)">Robust (pcall/xpcall Wrappers)</option>
-                <option value="Minimal">None (Optimized Speed)</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Prompt Area -->
-          <div class="form-group">
-            <div class="label-row">
-              <label class="form-label">BEHAVIORAL SPECIFICATION</label>
-              <span id="char-counter" class="char-count">0 / 1000</span>
-            </div>
-            <div class="textarea-wrapper">
-              <textarea id="prompt-input" maxlength="1000" placeholder="e.g. Generate a complete Roblox data store module that auto-saves player gold and inventory. Include debounce mechanisms, auto-retries, and session locking..."></textarea>
-              <div class="textarea-glow"></div>
-            </div>
-          </div>
-
-          <!-- Action Button -->
-          <button id="forge-btn" class="forge-cta">
-            <span class="cta-glitch"></span>
-            <svg class="cta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-            </svg>
-            SYNTHESIZE LUA SCRIPT
-          </button>
-
-          <!-- Quick Presets -->
-          <div class="form-group preset-section">
-            <label class="form-label">// SAMPLE SEED TEMPLATES</label>
-            <div class="presets-row">
-              <button class="preset-tag" data-prompt="An A* pathfinding algorithm module that returns node arrays and handles height changes.">A* Pathfinding</button>
-              <button class="preset-tag" data-prompt="A standard Roblox admin command handler utilizing chats and player permissions.">Admin Commands</button>
-              <button class="preset-tag" data-prompt="A custom Love2D physics particle emitter with variable wind force, friction, and bounce collisions.">Love2D Particles</button>
-              <button class="preset-tag" data-prompt="A Neovim plugin setup to automatically format Lua files and highlight customized keywords.">Neovim Formatter</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Editor Panel (Right Column) -->
-      <section class="editor-panel">
-        <div class="panel-header editor-header">
-          <div class="editor-title-row">
-            <span class="panel-title">// WORKSPACE</span>
-            <span id="active-filename" class="file-badge">untitled.lua</span>
-            <span id="active-status" class="status-badge-inline idle">IDLE</span>
-          </div>
-          <div class="editor-actions">
-            <button id="copy-btn" class="icon-btn" title="Copy Code">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
-              </svg>
-              <span>COPY</span>
-            </button>
-            <button id="download-btn" class="icon-btn" title="Download Script">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
-              </svg>
-              <span>DOWNLOAD</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="editor-body">
-          <div class="editor-wrapper">
-            <!-- Simulated Line Numbers -->
-            <div id="line-numbers" class="line-numbers">
-              <span>1</span>
-            </div>
-            <!-- Scrollable code display -->
-            <div class="code-container">
-              <pre><code id="code-output" class="language-lua">-- ====================================================================
---   LUA-FORGE v2.6.0 // Awaiting forge initialization...
--- ====================================================================
--- Select target dialect, configure complexity, and describe your
--- desired script in the parameters panel. Press 'SYNTHESIZE' to begin.
--- ====================================================================
-
-function initForge()
-    print("Welcome to LuaForge.")
-    print("Awaiting neural script matrix instructions...")
-end
-
-initForge()</code></pre>
-            </div>
-          </div>
-
-          <!-- Script Info Area -->
-          <div id="script-metadata" class="script-metadata hidden">
-            <h3 id="meta-title">Script Title</h3>
-            <p id="meta-desc">Script Description</p>
-          </div>
-
-          <!-- Interactive Refinement Field -->
-          <div class="refine-row">
-            <div class="refine-input-wrapper">
-              <input type="text" id="refine-input" placeholder="Refine code (e.g., 'Add a throttle parameter', 'optimize memory consumption'...)" disabled>
-              <div class="refine-indicator">REFINE</div>
-            </div>
-            <button id="refine-btn" class="refine-action-btn" disabled>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="22" y1="2" x2="11" y2="13" />
-                <polygon points="22 2 15 22 11 13 2 9 22 2" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- Terminal Log Console (Bottom Row) -->
-      <section class="terminal-panel">
-        <div class="panel-header terminal-panel-header">
-          <span class="panel-title">// CORE COMPLIANCE LOGS</span>
-          <div class="terminal-controls">
-            <button id="dry-run-btn" class="terminal-action-btn" disabled>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polygon points="5 3 19 12 5 21 5 3" />
-              </svg>
-              RUN SIMULATED ENVIRONMENT
-            </button>
-            <button id="clear-console-btn" class="terminal-action-btn border-only">CLEAR LOGS</button>
-          </div>
-        </div>
-        <div id="terminal-console" class="terminal-console">
-          <div class="log-line sys">[SYSTEM] Forge core initialized. Waiting for input vector...</div>
-          <div class="log-line db">[DB] Synced with Netlify Database. Past sessions active.</div>
-        </div>
-      </section>
-    </main>
-
-    <!-- Slide-out Archives Sidebar -->
-    <aside id="archives-sidebar" class="archives-sidebar">
-      <div class="sidebar-header">
-        <span class="sidebar-title">// FORGED ARCHIVES</span>
-        <button id="close-sidebar-btn" class="close-btn">&times;</button>
-      </div>
-      <div class="sidebar-meta">
-        <span>Stored in Netlify Serverless DB</span>
-        <button id="purge-history-btn" class="purge-btn">PURGE ALL</button>
-      </div>
-      <div id="archives-list" class="archives-list">
-        <!-- Dynmically Populated -->
-        <div class="empty-archives">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M4 19.5A2.5 2.5 0 016.5 17H20M4 19.5A2.5 2.5 0 006.5 22H20M4 19.5V3A2.5 2.5 0 016.5 0.5H20v14H6.5a2.5 2.5 0 00-2.5 2.5z" />
-          </svg>
-          <p>No forged scripts found in the cloud.</p>
-        </div>
-      </div>
-    </aside>
+  <div class="project">
+    <h2>My Cool Software</h2>
+    <p>A desktop/mobile utility built with Flutter/C++.</p>
+    <!-- Link to GitHub Releases for file downloads -->
+    <a class="button" href="https://github.com">Download App</a>
   </div>
-
-  <script src="app.js" type="module"></script>
 </body>
 </html>
